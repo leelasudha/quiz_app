@@ -1,2 +1,5 @@
 Flask
 Flask-Session
+gunicorn==19.9.0
+Jinja2==2.10.1
+
