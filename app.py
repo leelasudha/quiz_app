@@ -36,4 +36,4 @@ def index():
 	return render_template( 'index.html', context = context)
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
-    app.run( port=8000)  
+    app.run( threaded=True, port=5000)  
