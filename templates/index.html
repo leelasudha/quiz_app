@@ -1,0 +1,33 @@
+<html>
+<title>Quiz Online</title>
+<body>
+	<h1>Welcome to Quiz Online </h1>
+	<h2> Click Here to take test</h2>
+	<form action="" method="post">
+	<ol> {% for question, options, correct_answer in context %}
+	 
+		<li>{{question}}</li>
+		<br>
+	<ol>
+	{% for option in options%}
+    <input type="checkbox" id="id_{{option}}" name="option" value="{{option}}">
+<label for="id_{{option}}">{{option}}</label>
+		
+		<br>
+	
+	{% endfor%}
+	
+	</ol> {% if name in options %}
+		<p>The selected answer is : {{name}} </p>
+		{% endif %}
+	<p> The correct answer is : {{correct_answer}}</p>
+	{% endfor%}
+
+	</ol>
+	<input type= "submit" value="check correct answer">
+	</form>
+
+
+
+</body>
+</html>
