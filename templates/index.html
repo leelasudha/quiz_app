@@ -1,33 +1,61 @@
 <html>
+<head><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head> 
 <title>Quiz Online</title>
+ </head>
+
 <body>
 	<h1>Welcome to Quiz Online </h1>
-	<h2> Click Here to take test</h2>
 	<form action="" method="post">
 	<ol> {% for question, options, correct_answer in context %}
-	 
-		<li>{{question}}</li>
+
+		<li>{{question|safe}}</li>
 		<br>
 	<ol>
-	{% for option in options%}
-    <input type="checkbox" id="id_{{option}}" name="option" value="{{option}}">
-<label for="id_{{option}}">{{option}}</label>
 		
-		<br>
-	
+	{% for option in options%}
+    <input type="radio" id="{{question|safe}}__{{correct_answer|safe}}" name="{{question}}" value="{{option}}"  onclick = "mycheckbox(this);">
+	<label for="id_{{option}}">{{option|safe}}</label>
+	<br>
 	{% endfor%}
 	
+
 	</ol> {% if name in options %}
-		<p>The selected answer is : {{name}} </p>
+		<p>The selected answer is : {{name|safe}} </p>
 		{% endif %}
-	<p> The correct answer is : {{correct_answer}}</p>
+	<p id='{{question|safe}}__correct_answer'> </p>
 	{% endfor%}
 
-	</ol>
-	<input type= "submit" value="check correct answer">
+	
+
+	<button  onclick="result() ; return false;"> Result</button></ol>	
+	<p id= 'total_score'> </p>
+	
 	</form>
 
 
 
 </body>
+<script type="text/javascript"> 
+	let counter = 0;
+function mycheckbox(element){
+	question_answer_array = element.id.split("__");
+	question = question_answer_array[0]
+	correct_answer =question_answer_array[1]
+	selected_answer =element.value;
+	id = question.concat('__correct_answer');
+	if (correct_answer != selected_answer){
+		document.getElementById(id).innerHTML =  `The correct answer is ${correct_answer}`;
+	}
+	else{
+		counter++;
+	}
+	}
+	function result(){
+		//reset()= false;
+		//alert(counter);
+		document.getElementById("total_score").innerHTML =  `You have scored ${counter} marks`;
+	}
+</script>
 </html>
